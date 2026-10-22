@@ -1,6 +1,9 @@
 package employees;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +20,12 @@ public class EmployeesService {
         return repository.findAllResources();
     }
 
+    @PreAuthorize("@aclEntryService.hasAccess(#id, authentication.name)")
     public EmployeeModel findEmployeeById(long id) {
         return toDto(repository.findById(id).orElseThrow(notFountException(id)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public EmployeeModel createEmployee(EmployeeModel command) {
         var employee = new Employee(command.getName());
         repository.save(employee);

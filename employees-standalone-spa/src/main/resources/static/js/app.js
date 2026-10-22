@@ -24,7 +24,7 @@ function create() {
     const name = nameInput.value;
     const jsonData = JSON.stringify({"name": name});
 
-    fetch("api/employees", {
+    fetch("http://localhost:8080/api/employees", {
         method: "POST",
         body: jsonData,
         headers: {
