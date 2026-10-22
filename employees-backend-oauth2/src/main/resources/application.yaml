@@ -10,6 +10,11 @@ spring:
     open-in-view: false
   liquibase:
     change-log: classpath:db/db-changelog.yaml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/realms/employees
 
 management:
   endpoints:
@@ -21,3 +26,4 @@ logging:
   level:
     employees: DEBUG
     org.hibernate.SQL: TRACE
+    org.springframework.security: DEBUG

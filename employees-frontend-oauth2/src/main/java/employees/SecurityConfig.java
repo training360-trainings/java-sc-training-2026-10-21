@@ -15,13 +15,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->request
                         .requestMatchers("/create-employee")
                             .authenticated()
-                        .requestMatchers("/")
+                        .requestMatchers("/", "/logout")
                             .permitAll()
                         .anyRequest().
                             denyAll()
                 )
                 .oauth2Login(Customizer.withDefaults())
-                .logout(Customizer.withDefaults());
+                .logout(custom -> custom.logoutSuccessUrl("/"));
         return http.build();
     }
 }
