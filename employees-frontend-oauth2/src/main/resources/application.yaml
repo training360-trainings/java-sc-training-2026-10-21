@@ -14,3 +14,16 @@ logging:
 
 employees:
   backend-url: http://localhost:8081
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: employees-frontend
+            authorization-grant-type: authorization_code
+            scope: openid,email,profile
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/employees
