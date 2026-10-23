@@ -28,14 +28,13 @@ public class EmployeesController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeResource findEmployeeById(@PathVariable("id") long id) {
+    public EmployeeResource findEmployeeById(@PathVariable long id) {
         return employeesService.findEmployeeById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EmployeeResource> createEmployee(@Valid @RequestBody EmployeeResource command, UriComponentsBuilder builder, HttpHeaders headers) {
-        log.info("Headers: {}", headers);
+    public ResponseEntity<EmployeeResource> createEmployee(@Valid @RequestBody EmployeeResource command, UriComponentsBuilder builder) {
         var resource = employeesService.createEmployee(command);
         return ResponseEntity.created(builder.path("/api/employees/{id}").buildAndExpand(resource.id()).toUri()).body(resource);
     }
